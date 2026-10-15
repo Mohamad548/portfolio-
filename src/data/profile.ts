@@ -1,5 +1,7 @@
 export const profile = {
   birthYear: 1995,
+  /** First professional web project (WordPress stores); drives the "years of experience" stat. */
+  careerStartYear: 2020,
   phone: "+98-918-548-0383",
   phoneRaw: "09185480383",
   email: "mahmodim222@gmail.com",

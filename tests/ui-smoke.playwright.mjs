@@ -20,7 +20,7 @@ async (page) => {
     results.push({ width, overflow: false });
   }
   assert(await page.locator("#ai-approach").innerText().then(text => text.includes("بیش از یک سال")), "AI experience is missing");
-  assert(await page.locator("#skills").innerText().then(text => text.includes("Node.js") && text.includes("MySQL") && text.includes("آشنایی")), "Backend familiarity is missing");
+  assert(await page.locator("#services").innerText().then(text => text.includes("Node.js") && text.includes("MySQL") && text.includes("PostgreSQL")), "Backend technologies are missing");
   await page.setViewportSize({ width: 360, height: 800 });
   const toggle = page.locator("header button[aria-controls]");
   await toggle.click();
@@ -35,11 +35,12 @@ async (page) => {
   assert((await page.locator("main").innerText()).includes("انواع دیگر پایگاه داده"), "Other databases familiarity is missing");
   await page.goto("http://127.0.0.1:3100/projects");
   const input = page.getByPlaceholder("جستجو در پروژه‌ها، تکنولوژی...");
-  await input.fill("دیپلوی");
-  assert(await page.locator("main article").count() === 1, "Project search did not find the approved Instagram project");
+  await input.fill("Insta Shop");
+  assert(await page.locator("main article").count() === 1, "Project search did not find the Instagram shop plugin");
   await page.locator("main article").getByRole("link", { name: "مشاهده پروژه", exact: true }).click();
-  await page.waitForURL("**/projects/instagram-shop-deployment");
-  assert((await page.locator("h1").innerText()) === "فرانت‌اند دیپلوی نکست و وردپرس", "Approved project title changed");
+  await page.waitForURL("**/projects/insta-shop-direct");
+  assert((await page.locator("h1").innerText()) === "Insta Shop Direct — فروشگاه اینستاگرامی ووکامرس", "Instagram plugin title changed");
+  assert(await page.locator("#capabilities").count() === 1, "Project capabilities section is missing");
   await page.goto("http://127.0.0.1:3100/");
   await page.emulateMedia({ reducedMotion: "reduce" });
   assert(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior === "auto"), "Reduced motion scrolling not respected");

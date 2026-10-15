@@ -1,52 +1,52 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Atom,
-  Braces,
-  Check,
-  Code2,
-  Database,
-  Layers3,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, Braces, Check, Code2, Sparkles } from "lucide-react";
 import { AiStudioTeaser } from "@/components/ai-studio/AiStudioTeaser";
 import { Hero } from "@/components/home/Hero";
-import { ExpertiseGrid } from "@/components/home/ExpertiseGrid";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { WorkProcess } from "@/components/home/WorkProcess";
+import { TrustSection } from "@/components/home/TrustSection";
 import { ContactCTA } from "@/components/home/ContactCTA";
+import { FadeIn } from "@/components/motion/FadeIn";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
+import { profile, socialLinks } from "@/data/profile";
 import { localizeProjects } from "@/i18n/content";
 import { format } from "@/i18n/format";
 import { getI18n } from "@/i18n/server";
-import type { PagesDictionary } from "@/i18n/dictionaries";
 
-type ToolkitKey = keyof PagesDictionary["home"]["toolkit"]["cards"];
-
-const toolkitIcons: Record<ToolkitKey, LucideIcon> = {
-  frontend: Atom,
-  wordpress: Layers3,
-  ai: Sparkles,
-  backend: Database,
-};
+const siteUrl = "https://mohamadmahmodi.ir";
 
 export default async function HomePage() {
   const { locale, t, link, formatNumber } = await getI18n();
   const home = t.pages.home;
   const projects = localizeProjects(t);
-  const featured = projects.filter((project) => project.featured).slice(0, 4);
+  const featured = projects.filter((project) => project.featured);
+
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: t.ui.brand.name,
+    jobTitle: t.ui.brand.role,
+    url: `${siteUrl}${link("/")}`,
+    image: `${siteUrl}${profile.photo}`,
+    email: `mailto:${profile.email}`,
+    sameAs: [profile.linkedin, ...socialLinks.map((item) => item.href)],
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
+      />
       <Hero />
-      <ExpertiseGrid />
-      <section id="featured-projects" className="section-pad" aria-label={home.featured.title}>
+
+      <section id="featured-projects" className="section-pad" aria-labelledby="featured-heading">
         <div className="container-page">
           <div className="section-header-row">
             <SectionHeading
-              eyebrow="SELECTED WORK"
+              id="featured-heading"
+              eyebrow={home.featured.eyebrow}
               title={home.featured.title}
               description={home.featured.description}
             />
@@ -54,12 +54,14 @@ export default async function HomePage() {
               {home.featured.viewAll} <ArrowRight size={16} aria-hidden="true" className="mirror-rtl" />
             </Link>
           </div>
-          <div className="grid gap-5 lg:grid-cols-2">
-            {featured.map((project) => (
-              <ProjectCard key={project.slug} project={project} locale={locale} t={t.ui} />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((project, i) => (
+              <FadeIn key={project.slug} delay={Math.min(i * 0.05, 0.25)} className="h-full">
+                <ProjectCard project={project} locale={locale} t={t.ui} />
+              </FadeIn>
             ))}
           </div>
-          <p className="mt-5 text-center text-xs text-text-muted">
+          <p className="mt-6 text-center text-sm text-text-muted">
             <span className="font-semibold text-accent">
               {format(home.featured.count, { count: formatNumber(projects.length) })}
             </span>{" "}
@@ -67,6 +69,10 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
+
+      <ServicesSection />
+      <WorkProcess />
+
       <section id="ai-approach" className="pb-6" aria-labelledby="ai-heading">
         <div className="container-page ai-section glass-panel-strong">
           <div className="ai-visual" aria-hidden="true">
@@ -113,40 +119,8 @@ export default async function HomePage() {
         </div>
       </section>
       <AiStudioTeaser />
-      <section id="skills" className="pb-14 md:pb-20" aria-label={home.toolkit.label}>
-        <div className="container-page">
-          <div className="section-header-row">
-            <SectionHeading
-              eyebrow="MY TOOLKIT"
-              title={home.toolkit.title}
-              description={home.toolkit.description}
-            />
-            <Button href={link("/skills")} variant="outline">
-              {home.toolkit.viewAll} <ArrowRight size={16} aria-hidden="true" className="mirror-rtl" />
-            </Button>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {(Object.keys(toolkitIcons) as ToolkitKey[]).map((key) => {
-              const Icon = toolkitIcons[key];
-              const { title, tools, note } = home.toolkit.cards[key];
-              return (
-                <div key={key} className="toolkit-card glass-panel">
-                  <span className="icon-tile mb-6">
-                    <Icon size={23} strokeWidth={1.7} aria-hidden="true" />
-                  </span>
-                  <h3 className="text-base font-bold">{title}</h3>
-                  <p className="mt-2 text-[11px] leading-6 text-accent" dir="ltr">
-                    {tools}
-                  </p>
-                  <p className="mt-4 border-t border-border pt-4 text-xs leading-6 text-text-muted">
-                    {note}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+
+      <TrustSection />
       <ContactCTA />
     </>
   );

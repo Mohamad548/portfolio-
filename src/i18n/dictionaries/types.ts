@@ -2,7 +2,7 @@ import type { AiCapability, AiMediaId } from "@/data/ai-studio";
 import type { CertificateId } from "@/data/certificates";
 import type { ExperienceId } from "@/data/experience";
 import type { NavKey, SocialNetwork } from "@/data/profile";
-import type { ProjectSlug } from "@/data/projects";
+import type { ProjectSectionId, ProjectSlug } from "@/data/projects";
 import type { SkillGroupId } from "@/data/skills";
 import type {
   AiMediaCopy,
@@ -12,6 +12,9 @@ import type {
   ExperienceType,
   ProjectCategory,
   ProjectCopy,
+  ProjectEngagement,
+  ProjectSectionCopy,
+  ProjectStatus,
   SkillLabelKey,
   SkillLevel,
 } from "@/data/types";
@@ -39,6 +42,8 @@ export type UiDictionary = {
   phone: { label: string; title: string; prompt: string };
   projects: {
     categories: Record<ProjectCategory, string>;
+    engagement: Record<ProjectEngagement, string>;
+    status: Record<ProjectStatus, string>;
     all: string;
     view: string;
     live: string;
@@ -75,25 +80,20 @@ type Card = { title: string; description: string };
 export type PagesDictionary = {
   home: {
     hero: {
-      available: string;
       greeting: string;
       headingLead: string;
       headingHighlight: string;
       description: string;
-      techLabel: string;
-      aiPill: string;
       viewProjects: string;
       startCollaboration: string;
       photoAlt: string;
-      badgeTop: string;
-      badgeBottom: string;
-      badgeBottomNote: string;
-    };
-    expertise: {
-      label: string;
-      items: Record<"interfaces" | "stack" | "ai", Card>;
+      growthCard: Card;
+      modernCard: Card;
+      statsLabel: string;
+      stats: Record<"years" | "projects" | "live", string>;
     };
     featured: {
+      eyebrow: string;
       title: string;
       description: string;
       viewAll: string;
@@ -112,18 +112,35 @@ export type PagesDictionary = {
       description: string;
       cta: string;
     };
-    toolkit: {
-      label: string;
+    services: {
+      eyebrow: string;
       title: string;
       description: string;
-      viewAll: string;
-      cards: Record<"frontend" | "wordpress" | "ai" | "backend", { title: string; tools: string; note: string }>;
+      items: Record<"ui" | "web" | "performance" | "wordpress", Card>;
+      techTitle: string;
+      techDescription: string;
+      viewSkills: string;
+    };
+    process: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      steps: Record<"discover" | "plan" | "build" | "deliver", Card>;
+    };
+    trust: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      experienceTitle: string;
+      liveTitle: string;
+      principles: Record<"honest" | "quality" | "support", Card>;
     };
     contact: {
       eyebrow: string;
       heading: string;
       description: string;
       cta: string;
+      emailLabel: string;
     };
   };
   about: {
@@ -161,6 +178,8 @@ export type PagesDictionary = {
     role: string;
     technologies: string;
     features: string;
+    capabilities: string;
+    imagesNote: string;
   };
   contact: {
     title: string;
@@ -197,11 +216,18 @@ export type PagesDictionary = {
   };
 };
 
+export type ProjectsDictionary = {
+  [S in ProjectSlug]: ProjectCopy &
+    ([ProjectSectionId<S>] extends [never]
+      ? { sections?: never }
+      : { sections: Record<ProjectSectionId<S>, ProjectSectionCopy> });
+};
+
 export type Dictionary = {
   ui: UiDictionary;
   pages: PagesDictionary;
   profile: ProfileCopy;
-  projects: Record<ProjectSlug, ProjectCopy>;
+  projects: ProjectsDictionary;
   skills: {
     groups: Record<SkillGroupId, string>;
     items: Record<SkillLabelKey, string>;

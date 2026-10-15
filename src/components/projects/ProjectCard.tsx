@@ -22,14 +22,20 @@ export function ProjectCard({
 
   return (
     <article className={cn("project-card glass-panel group", className)}>
-      <ProjectVisual project={project} />
+      <div className="relative">
+        <ProjectVisual slug={project.slug} sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 400px" />
+        <div className="project-badges">
+          <span className="project-badge">{t.projects.engagement[project.engagement]}</span>
+          {project.status ? (
+            <span className="project-badge project-badge-status">{t.projects.status[project.status]}</span>
+          ) : null}
+        </div>
+      </div>
       <div className="project-card-content">
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <span className="text-[11px] font-medium text-accent">
-            {t.projects.categories[project.category]}
-          </span>
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <span className="text-xs font-semibold text-accent">{t.projects.categories[project.category]}</span>
           {project.year ? (
-            <span className="font-mono text-[10px] text-text-muted" dir="ltr">
+            <span className="font-mono text-[11px] text-text-soft" dir="ltr">
               {project.year}
             </span>
           ) : null}
@@ -39,21 +45,18 @@ export function ProjectCard({
             {project.title}
           </Link>
         </h3>
-        <p className="mt-2 text-[13px] leading-7 text-text-muted">{project.summary}</p>
-        <div className="mt-4 flex flex-wrap gap-1.5" dir="ltr">
+        <p className="mt-2 line-clamp-3 text-sm leading-7 text-text-muted">{project.summary}</p>
+        <ul className="mt-4 flex flex-wrap gap-1.5" dir="ltr">
           {project.stack.slice(0, 3).map((tech) => (
-            <span
-              key={tech}
-              className="rounded-lg border border-blue-100/70 bg-blue-50/60 px-2 py-1 text-[10px] text-[#4a6390]"
-            >
+            <li key={tech} className="tech-badge">
               {tech}
-            </span>
+            </li>
           ))}
-        </div>
-        <div className="mt-5 flex flex-wrap items-center gap-4">
+        </ul>
+        <div className="mt-auto flex flex-wrap items-center gap-4 pt-5">
           <Link
             href={href}
-            className="focus-ring inline-flex items-center gap-2 rounded-lg text-xs font-semibold text-accent"
+            className="focus-ring inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-accent"
           >
             {t.projects.view} <ArrowUpRight size={15} aria-hidden="true" className="mirror-rtl" />
           </Link>

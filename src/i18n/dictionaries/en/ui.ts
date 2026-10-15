@@ -18,7 +18,7 @@ export const ui: UiDictionary = {
     mobileNav: "Mobile navigation",
     openMenu: "Open main menu",
     closeMenu: "Close main menu",
-    cta: "Let's talk",
+    cta: "Contact me",
     drawerCta: "Start a collaboration",
   },
   language: { switcherLabel: "Change language" },
@@ -35,10 +35,13 @@ export const ui: UiDictionary = {
   projects: {
     categories: {
       "live-site": "Live sites",
+      "wp-theme": "WordPress themes",
       "wp-plugin": "WordPress plugins",
       "next-app": "React / Next apps",
       system: "Ops systems",
     },
+    engagement: { custom: "Custom build", customization: "Setup & customization" },
+    status: { "in-development": "In development", prototype: "Prototype" },
     all: "All",
     view: "View project",
     live: "Live site",

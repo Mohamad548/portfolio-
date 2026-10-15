@@ -1,5 +1,6 @@
 export type ProjectCategory =
   | "live-site"
+  | "wp-theme"
   | "wp-plugin"
   | "next-app"
   | "system";
@@ -8,14 +9,29 @@ export type SkillLevel = "expert" | "advanced" | "intermediate" | "familiar";
 
 export type ExperienceType = "work" | "education" | "course";
 
+export type ProjectStatus = "in-development" | "prototype";
+
+/** `custom`: built from scratch; `customization`: set up and extended on an existing platform or theme. */
+export type ProjectEngagement = "custom" | "customization";
+
 export interface ProjectBase {
   slug: string;
   category: ProjectCategory;
+  engagement: ProjectEngagement;
   featured?: boolean;
   stack: readonly string[];
   liveUrl?: string;
   accent: string;
   year?: string;
+  status?: ProjectStatus;
+  /** Ordered ids of the detail-page sections; each has an image at `/images/projects/<slug>/<id>.webp`. */
+  sections?: readonly string[];
+}
+
+export interface ProjectSectionCopy {
+  title: string;
+  description: string;
+  points: readonly string[];
 }
 
 export interface ProjectCopy {
@@ -27,7 +43,13 @@ export interface ProjectCopy {
   solution: string;
 }
 
-export type Project = ProjectBase & ProjectCopy;
+export interface ProjectSection extends ProjectSectionCopy {
+  id: string;
+  image: string;
+}
+
+export type Project = Omit<ProjectBase, "sections"> &
+  ProjectCopy & { sections: readonly ProjectSection[] };
 
 export type SkillIcon =
   | "layout"

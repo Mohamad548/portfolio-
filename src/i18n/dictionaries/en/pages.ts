@@ -3,42 +3,29 @@ import type { PagesDictionary } from "../types";
 export const pages: PagesDictionary = {
   home: {
     hero: {
-      available: "Open to work",
       greeting: "Hi, I'm Mohamad Mahmodi",
-      headingLead: "Your ideas,",
-      headingHighlight: "lasting web experiences.",
+      headingLead: "Web design & development",
+      headingHighlight: "focused on user experience",
       description:
-        "Designing and building modern interfaces with React, Next.js and WordPress, with a sharp eye for user experience and the power of AI tools.",
-      techLabel: "Core technologies",
-      aiPill: "Limitless design with AI",
+        "A web developer focused on modern user interfaces, fast websites and professional digital experiences.",
       viewProjects: "View projects",
       startCollaboration: "Start a collaboration",
-      photoAlt: "Mohamad Mahmodi, front-end developer",
-      badgeTop: "From idea to experience",
-      badgeBottom: "Creativity, powered by AI",
-      badgeBottomNote: "Smart development, human precision",
-    },
-    expertise: {
-      label: "Areas of expertise",
-      items: {
-        interfaces: {
-          title: "Modern, responsive interfaces",
-          description: "From design details to a smooth experience on every screen",
-        },
-        stack: {
-          title: "Built with Next.js & WordPress",
-          description: "Stores, dashboards and plugins tailored to real project needs",
-        },
-        ai: {
-          title: "Creativity with AI",
-          description: "From building interfaces to realistic ad banners and videos with AI",
-        },
+      photoAlt: "Mohamad Mahmodi working on a laptop at his desk",
+      growthCard: { title: "Growth & progress", description: "Continuous learning" },
+      modernCard: { title: "Modern web development", description: "Creative solutions" },
+      statsLabel: "At a glance",
+      stats: {
+        years: "Years in web development",
+        projects: "Projects in the portfolio",
+        live: "Live websites & systems",
       },
     },
     featured: {
-      title: "Selected projects",
-      description: "From a real need to a usable experience: a few examples of my work.",
-      viewAll: "All projects",
+      eyebrow: "Selected work",
+      title: "A few of my recent projects",
+      description:
+        "Real projects built with a focus on design, technical quality, performance and user experience.",
+      viewAll: "View all projects",
       count: "{count} projects",
       countNote: "across web development, e-commerce and practical tools",
     },
@@ -54,40 +41,85 @@ export const pages: PagesDictionary = {
         "Realistic ad banners and seamless videos made with Google Flow and specialized AI tools, guided by precise prompting from idea to final cut.",
       cta: "Enter the AI Studio",
     },
-    toolkit: {
-      label: "Skills and tools",
-      title: "Tools in service of ideas",
-      description: "My core expertise is front-end, backed by an understanding of the full path to shipping a web product.",
-      viewAll: "All skills",
-      cards: {
-        frontend: {
-          title: "Front-end",
-          tools: "React · Next.js · TypeScript",
-          note: "Building interfaces and practical dashboards",
+    services: {
+      eyebrow: "Skills & services",
+      title: "What I offer",
+      description:
+        "Technical skill, careful design and attention to detail, combined to build professional web experiences.",
+      items: {
+        ui: {
+          title: "UI development",
+          description: "Precise, responsive and user-friendly interfaces.",
+        },
+        web: {
+          title: "Modern web development",
+          description: "Professional websites with sound architecture and maintainable code.",
+        },
+        performance: {
+          title: "Performance optimization",
+          description: "Faster loading, smoother experience and stronger technical metrics.",
         },
         wordpress: {
-          title: "WordPress",
-          tools: "WordPress · WooCommerce · PHP",
-          note: "Online stores and custom plugins",
+          title: "WordPress & e-commerce",
+          description: "Designing, customizing and extending store solutions that fit the business.",
         },
-        ai: {
-          title: "Artificial intelligence",
-          tools: "Prompt Engineering · Google Flow",
-          note: "Development, ad banners and videos with AI",
+      },
+      techTitle: "Tools & technologies",
+      techDescription: "Technologies I have used in real, shipped projects.",
+      viewSkills: "Skill details",
+    },
+    process: {
+      eyebrow: "How we work together",
+      title: "A simple path to a successful project",
+      description: "Every step is transparent, so you always know where the project stands.",
+      steps: {
+        discover: {
+          title: "Consultation & discovery",
+          description: "Understanding the business goal, audience and exact scope.",
         },
-        backend: {
-          title: "Backend & databases",
-          tools: "Node.js · MySQL · PostgreSQL",
-          note: "Familiar with backend and various databases",
+        plan: {
+          title: "Design & planning",
+          description: "Defining page structure, interface and the technical roadmap.",
+        },
+        build: {
+          title: "Development",
+          description: "Clean, responsive, maintainable code with feedback at each stage.",
+        },
+        deliver: {
+          title: "Delivery & support",
+          description: "Final testing, launch and ongoing improvement and maintenance.",
+        },
+      },
+    },
+    trust: {
+      eyebrow: "Track record",
+      title: "Trust is the greatest asset",
+      description:
+        "Instead of made-up quotes, see my real work history and websites that are live right now.",
+      experienceTitle: "Work experience",
+      liveTitle: "Live websites & systems",
+      principles: {
+        honest: {
+          title: "Transparent reporting",
+          description: "I share project status, limits and timelines exactly as they are.",
+        },
+        quality: {
+          title: "Maintainable code",
+          description: "Clean, documented structure so the project can keep growing after handoff.",
+        },
+        support: {
+          title: "Support after launch",
+          description: "Bug fixes, speed improvements and new features down the road.",
         },
       },
     },
     contact: {
-      eyebrow: "Your next project, maybe together",
-      heading: "Let's give your idea a great start.",
+      eyebrow: "Let's work together",
+      heading: "Let's stay in touch",
       description:
-        "I'm ready to design a fresh experience, build your website or join your team. Let's talk about what you have in mind.",
-      cta: "Let's talk",
+        "If your project needs a web developer, or you'd like to talk through a digital idea, I'd be happy to hear from you.",
+      cta: "Contact me",
+      emailLabel: "Send an email",
     },
   },
   about: {
@@ -161,6 +193,8 @@ export const pages: PagesDictionary = {
     role: "My role",
     technologies: "Technologies",
     features: "Key features",
+    capabilities: "Features and capabilities in detail",
+    imagesNote: "Images in this section are illustrative, not real product screenshots.",
   },
   contact: {
     title: "Let's work together",

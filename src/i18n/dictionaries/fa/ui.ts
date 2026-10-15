@@ -18,7 +18,7 @@ export const ui: UiDictionary = {
     mobileNav: "منوی اصلی موبایل",
     openMenu: "باز کردن منوی اصلی",
     closeMenu: "بستن منوی اصلی",
-    cta: "شروع همکاری",
+    cta: "تماس با من",
     drawerCta: "شروع یک همکاری",
   },
   language: { switcherLabel: "تغییر زبان" },
@@ -35,10 +35,13 @@ export const ui: UiDictionary = {
   projects: {
     categories: {
       "live-site": "سایت زنده",
+      "wp-theme": "قالب وردپرس",
       "wp-plugin": "افزونه وردپرس",
       "next-app": "اپ React / Next",
       system: "سیستم عملیاتی",
     },
+    engagement: { custom: "توسعه اختصاصی", customization: "راه‌اندازی و سفارشی‌سازی" },
+    status: { "in-development": "در حال توسعه", prototype: "نمونه اولیه" },
     all: "همه",
     view: "مشاهده پروژه",
     live: "نسخه زنده",

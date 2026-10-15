@@ -18,7 +18,7 @@ export const ui: UiDictionary = {
     mobileNav: "مێنیوی مۆبایل",
     openMenu: "کردنەوەی مێنیوی سەرەکی",
     closeMenu: "داخستنی مێنیوی سەرەکی",
-    cta: "با قسە بکەین",
+    cta: "پەیوەندیم پێوە بکە",
     drawerCta: "دەستپێکردنی هاوکاری",
   },
   language: { switcherLabel: "گۆڕینی زمان" },
@@ -35,10 +35,13 @@ export const ui: UiDictionary = {
   projects: {
     categories: {
       "live-site": "ماڵپەڕی زیندوو",
+      "wp-theme": "ڕووکاری وۆردپرێس",
       "wp-plugin": "پێوەکراوی وۆردپرێس",
       "next-app": "ئەپی React / Next",
       system: "سیستەمی کارپێکردن",
     },
+    engagement: { custom: "گەشەپێدانی تایبەت", customization: "دامەزراندن و ڕێکخستن" },
+    status: { "in-development": "لە گەشەپێداندایە", prototype: "نموونەی سەرەتایی" },
     all: "هەموو",
     view: "بینینی پڕۆژە",
     live: "وەشانی زیندوو",

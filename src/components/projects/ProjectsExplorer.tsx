@@ -72,9 +72,9 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
         })}
       </p>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((project, i) => (
-          <FadeIn key={project.slug} delay={Math.min(i * 0.04, 0.24)}>
+          <FadeIn key={project.slug} delay={Math.min(i * 0.04, 0.24)} className="h-full">
             <ProjectCard project={project} locale={locale} t={t} />
           </FadeIn>
         ))}

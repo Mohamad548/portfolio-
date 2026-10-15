@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useI18n } from "@/i18n/client";
 import { BrandAvatar } from "./navigation/BrandAvatar";
@@ -16,7 +16,7 @@ export function Header() {
 
   return (
     <header className="sticky top-4 z-50 mx-auto mt-4 w-[calc(100%_-_2rem)] max-w-[1240px] sm:top-5 sm:mt-5">
-      <div className="relative flex min-h-[76px] items-center justify-between gap-4 rounded-[1.5rem] border border-white/90 bg-white/75 px-4 shadow-[0_8px_40px_rgba(45,88,145,0.07),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-2xl sm:px-6">
+      <div className="relative flex min-h-[76px] items-center justify-between gap-4 rounded-[1.5rem] border border-white/90 bg-[var(--glass)] px-4 shadow-[0_10px_40px_rgba(16,44,97,0.07),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-2xl sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <MobileNavigation key={pathname} pathname={pathname} />
           <Link href={link("/")} className="focus-ring group flex min-w-0 shrink-0 items-center gap-3 rounded-xl">
@@ -39,8 +39,8 @@ export function Header() {
           <LanguageSwitcher />
           <div className="hidden lg:block">
             <Button href={link("/contact")} className="!rounded-xl !px-4 !py-2.5">
+              <MessageCircle aria-hidden="true" className="h-4 w-4" />
               {t.header.cta}
-              <ArrowUpRight aria-hidden="true" className="mirror-rtl h-4 w-4" />
             </Button>
           </div>
         </div>

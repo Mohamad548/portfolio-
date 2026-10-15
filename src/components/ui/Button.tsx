@@ -13,7 +13,7 @@ type ButtonProps = {
 
 const variants = {
   primary:
-    "border border-transparent bg-accent text-white shadow-[0_6px_18px_rgba(37,99,235,0.2),inset_0_1px_0_rgba(255,255,255,0.18)] hover:bg-[#1d4ed8] hover:shadow-[0_8px_24px_rgba(37,99,235,0.28)]",
+    "border border-transparent bg-accent text-white shadow-[0_6px_18px_rgba(8,102,245,0.22),inset_0_1px_0_rgba(255,255,255,0.18)] hover:bg-accent-2 hover:shadow-[0_8px_24px_rgba(8,102,245,0.3)]",
   ghost: "border border-transparent bg-transparent text-text-muted hover:text-accent hover:bg-blue-50",
   outline:
     "border border-blue-200/70 bg-white/65 text-text shadow-[0_2px_5px_rgba(45,88,145,0.03)] hover:border-blue-300 hover:bg-white",
@@ -29,7 +29,7 @@ export function Button({
   onClick,
 }: ButtonProps) {
   const classes = cn(
-    "focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-medium transition-[background-color,box-shadow,border-color,color,transform] duration-200 motion-safe:hover:-translate-y-0.5",
+    "focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-[14px] px-5 py-2.5 text-sm font-medium transition-[background-color,box-shadow,border-color,color,transform] duration-200 motion-safe:hover:-translate-y-0.5",
     variants[variant],
     className,
   );

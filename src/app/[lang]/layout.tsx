@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Vazirmatn, JetBrains_Mono } from "next/font/google";
+import { Caveat, Vazirmatn, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { profile } from "@/data/profile";
@@ -19,6 +19,14 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   display: "swap",
+});
+
+const caveat = Caveat({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "600",
+  display: "swap",
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -57,7 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html
       lang={locale}
       dir={dir}
-      className={`${vazirmatn.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${vazirmatn.variable} ${jetbrains.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
         <I18nProvider locale={locale} t={t.ui}>
