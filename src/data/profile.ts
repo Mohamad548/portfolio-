@@ -1,41 +1,47 @@
 export const profile = {
-  nameFa: "محمد محمودی",
-  nameEn: "Mohamad Mahmodi",
-  titleFa: "توسعه‌دهنده فرانت‌اند",
-  titleEn: "Front-End Developer",
-  headlineFa: "ساخت تجربهٔ وب دقیق، سریع و قابل‌مقیاس",
-  headlineEn: "Building precise, fast, and scalable web experiences",
-  taglineFa:
-    "از فروشگاه‌های وردپرس تا پنل‌های Next.js و افزونه‌های اختصاصی — کیفیت و تجربهٔ کاربری اولویت من است.",
-  taglineEn:
-    "From WordPress storefronts to Next.js panels and custom plugins — quality and UX come first.",
-  aboutFa: `من یک توسعه‌دهنده پرشور فرانت‌اند هستم با چندین سال تجربه در طراحی و توسعه وب‌سایت‌های کاربردی. از سال ۲۰۲۰ با وردپرس فروشگاه‌های تجارت الکترونیک ساختم و تجربیات ارزشمندی به‌دست آوردم. در سال ۲۰۲۳ برای ارتقای مهارت‌ها در دورهٔ React و Next.js مکتب شریف ثبت‌نام کردم. همیشه کیفیت و دقت را اولویت می‌دهم و هدفم ساخت تجربیات کاربری منحصربه‌فرد است.`,
-  aboutEn: `I am a passionate front-end developer with several years of experience designing and building functional websites. Since 2020 I have created e-commerce sites with WordPress. In 2023 I joined Maktab Sharif’s React and Next.js bootcamp to level up. I prioritize quality and precision, aiming for distinctive user experiences.`,
   birthYear: 1995,
-  birthDateFa: "۱۳۷۳/۱۱/۰۴",
-  maritalStatusFa: "متاهل",
-  maritalStatusEn: "Married",
-  militaryFa: "انجام‌شده",
-  militaryEn: "Completed",
-  cityFa: "تهران، توحید",
-  cityEn: "Tehran, Tohid",
   phone: "+98-918-548-0383",
   phoneRaw: "09185480383",
   email: "mahmodim222@gmail.com",
   linkedin: "https://www.linkedin.com/in/mohamadmahmodi/",
   linkedinLabel: "linkedin.com/in/mohamadmahmodi",
   photo: "/images/profile.jpg",
-  availableFa: "آماده همکاری تمام‌وقت / پروژه‌ای",
-  availableEn: "Open to full-time & freelance",
-  yearsSince: 2020,
 } as const;
 
-export const navLinks = [
-  { href: "/", labelFa: "خانه", labelEn: "Home" },
-  { href: "/about", labelFa: "درباره من", labelEn: "About" },
-  { href: "/skills", labelFa: "مهارت‌ها", labelEn: "Skills" },
-  { href: "/experience", labelFa: "سوابق", labelEn: "Experience" },
-  { href: "/projects", labelFa: "نمونه‌کارها", labelEn: "Projects" },
-  { href: "/certificates", labelFa: "گواهی‌ها", labelEn: "Certificates" },
-  { href: "/contact", labelFa: "تماس", labelEn: "Contact" },
+export const socialLinks = [
+  {
+    network: "instagram",
+    handle: "mohamad.m9496",
+    href: "https://www.instagram.com/mohamad.m9496/",
+  },
+  {
+    network: "telegram",
+    handle: "mahmodi298",
+    href: "https://t.me/mahmodi298",
+  },
+  {
+    network: "whatsapp",
+    handle: "09185480383",
+    href: "https://wa.me/989185480383",
+  },
 ] as const;
+
+export type SocialNetwork = (typeof socialLinks)[number]["network"];
+
+export const phoneNumbers = [
+  { display: "0918 548 0383", href: "tel:+989185480383" },
+  { display: "0937 808 4972", href: "tel:+989378084972" },
+] as const;
+
+export const navLinks = [
+  { href: "/", key: "home" },
+  { href: "/about", key: "about" },
+  { href: "/skills", key: "skills" },
+  { href: "/experience", key: "experience" },
+  { href: "/projects", key: "projects" },
+  { href: "/ai-studio", key: "aiStudio" },
+  { href: "/certificates", key: "certificates" },
+  { href: "/contact", key: "contact" },
+] as const;
+
+export type NavKey = (typeof navLinks)[number]["key"];

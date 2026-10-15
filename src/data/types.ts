@@ -4,54 +4,107 @@ export type ProjectCategory =
   | "next-app"
   | "system";
 
-export type SkillLevel = "expert" | "advanced" | "intermediate";
+export type SkillLevel = "expert" | "advanced" | "intermediate" | "familiar";
 
-export interface Project {
+export type ExperienceType = "work" | "education" | "course";
+
+export interface ProjectBase {
   slug: string;
-  title: string;
-  titleEn: string;
-  summary: string;
-  summaryEn: string;
   category: ProjectCategory;
   featured?: boolean;
-  role: string;
-  stack: string[];
-  features: string[];
-  featuresEn: string[];
-  problem: string;
-  solution: string;
+  stack: readonly string[];
   liveUrl?: string;
   accent: string;
   year?: string;
 }
 
-export interface SkillGroup {
-  id: string;
+export interface ProjectCopy {
   title: string;
-  titleEn: string;
-  icon: string;
-  items: { name: string; level: SkillLevel }[];
+  summary: string;
+  role: string;
+  features: readonly string[];
+  problem: string;
+  solution: string;
 }
 
-export interface ExperienceItem {
+export type Project = ProjectBase & ProjectCopy;
+
+export type SkillIcon =
+  | "layout"
+  | "code"
+  | "braces"
+  | "atom"
+  | "triangle"
+  | "wordpress"
+  | "sparkles"
+  | "database"
+  | "clapperboard"
+  | "wrench";
+
+export type SkillLabelKey =
+  | "aiIdeation"
+  | "aiInterfaces"
+  | "promptEngineering"
+  | "aiAdBanners"
+  | "aiRealisticVideo"
+  | "nodeBackend"
+  | "otherDatabases";
+
+/** Technical names are shown as-is; `labelKey` items are translated per locale. */
+export type SkillItem =
+  | { name: string; level: SkillLevel }
+  | { labelKey: SkillLabelKey; level: SkillLevel };
+
+export interface SkillGroupBase {
   id: string;
+  icon: SkillIcon;
+  items: readonly SkillItem[];
+}
+
+export interface ExperienceBase {
+  id: string;
+  type: ExperienceType;
+}
+
+export interface ExperienceCopy {
   title: string;
-  titleEn: string;
   company: string;
-  companyEn: string;
   period: string;
-  periodEn: string;
   description: string;
-  descriptionEn: string;
-  type: "work" | "education" | "course";
 }
 
-export interface Certificate {
+export interface CertificateBase {
   id: string;
+  image?: string;
+}
+
+export interface CertificateCopy {
   title: string;
-  titleEn: string;
   issuer: string;
   year: string;
   hours?: string;
-  image?: string;
 }
+
+export type AiMediaKind = "image" | "video";
+
+export interface AiMediaBase {
+  id: string;
+  kind: AiMediaKind;
+  /** Path under `public/`, e.g. `/ai-studio/perfume-banner.webp`. */
+  src: string;
+  /** Still frame shown before a video plays. */
+  poster?: string;
+  /** Intrinsic size; reserves the right aspect ratio before the file loads. */
+  width: number;
+  height: number;
+  tools: readonly string[];
+  /** Shown in the AI Studio teaser on the home page. */
+  featured?: boolean;
+}
+
+export interface AiMediaCopy {
+  title: string;
+  description: string;
+}
+
+export type AiMedia = AiMediaBase & AiMediaCopy;

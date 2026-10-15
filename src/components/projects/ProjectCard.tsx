@@ -1,75 +1,70 @@
 import Link from "next/link";
-import { ArrowUpLeft, ExternalLink } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { Project } from "@/data/types";
-import { categoryLabels } from "@/data/projects";
+import { localizePath, type Locale } from "@/i18n/config";
+import type { UiDictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/utils";
+import { ProjectVisual } from "./ProjectVisual";
 
+/** Rendered from both server pages and the client explorer, so copy comes in as props. */
 export function ProjectCard({
   project,
+  locale,
+  t,
   className,
 }: {
   project: Project;
+  locale: Locale;
+  t: UiDictionary;
   className?: string;
 }) {
-  const cat = categoryLabels[project.category];
+  const href = localizePath(locale, `/projects/${project.slug}`);
 
   return (
-    <article
-      className={cn(
-        "group relative overflow-hidden rounded-2xl border border-border bg-bg-soft/80 transition-all duration-300 hover:-translate-y-1 hover:border-border-strong hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
-        className,
-      )}
-    >
-      <div
-        className="h-1.5 w-full"
-        style={{
-          background: `linear-gradient(90deg, ${project.accent}, transparent)`,
-        }}
-      />
-      <div className="p-6">
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <span className="rounded-full border border-border bg-white/5 px-3 py-1 text-xs text-text-muted">
-            {cat.fa}
+    <article className={cn("project-card glass-panel group", className)}>
+      <ProjectVisual project={project} />
+      <div className="project-card-content">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <span className="text-[11px] font-medium text-accent">
+            {t.projects.categories[project.category]}
           </span>
           {project.year ? (
-            <span className="font-mono text-xs text-text-muted">{project.year}</span>
+            <span className="font-mono text-[10px] text-text-muted" dir="ltr">
+              {project.year}
+            </span>
           ) : null}
         </div>
-
-        <h3 className="font-display text-xl font-semibold tracking-tight text-text transition-colors group-hover:text-accent-2">
-          {project.title}
+        <h3 className="text-lg font-extrabold leading-8 tracking-tight text-text">
+          <Link href={href} className="focus-ring rounded-sm transition-colors hover:text-accent">
+            {project.title}
+          </Link>
         </h3>
-        <p className="mt-1 font-mono text-[11px] text-text-muted">{project.titleEn}</p>
-        <p className="mt-3 text-sm leading-7 text-text-muted">{project.summary}</p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.stack.slice(0, 4).map((tech) => (
+        <p className="mt-2 text-[13px] leading-7 text-text-muted">{project.summary}</p>
+        <div className="mt-4 flex flex-wrap gap-1.5" dir="ltr">
+          {project.stack.slice(0, 3).map((tech) => (
             <span
               key={tech}
-              className="rounded-md bg-accent-soft px-2 py-1 font-mono text-[11px] text-accent-2"
+              className="rounded-lg border border-blue-100/70 bg-blue-50/60 px-2 py-1 text-[10px] text-[#4a6390]"
             >
               {tech}
             </span>
           ))}
         </div>
-
-        <div className="mt-6 flex items-center gap-4 text-sm">
+        <div className="mt-5 flex flex-wrap items-center gap-4">
           <Link
-            href={`/projects/${project.slug}`}
-            className="inline-flex items-center gap-1 font-medium text-text hover:text-accent-2"
+            href={href}
+            className="focus-ring inline-flex items-center gap-2 rounded-lg text-xs font-semibold text-accent"
           >
-            جزئیات
-            <ArrowUpLeft className="h-4 w-4" />
+            {t.projects.view} <ArrowUpRight size={15} aria-hidden="true" className="mirror-rtl" />
           </Link>
           {project.liveUrl ? (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-text-muted hover:text-accent-2"
+              className="focus-ring inline-flex items-center gap-1 rounded-lg text-xs text-text-muted hover:text-accent"
             >
-              مشاهده سایت
-              <ExternalLink className="h-3.5 w-3.5" />
+              {t.projects.live} <ExternalLink size={12} aria-hidden="true" />
             </a>
           ) : null}
         </div>

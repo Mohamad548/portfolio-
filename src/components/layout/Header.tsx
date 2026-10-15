@@ -1,122 +1,50 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, X, ArrowUpLeft } from "lucide-react";
-import { navLinks, profile } from "@/data/profile";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { useI18n } from "@/i18n/client";
+import { BrandAvatar } from "./navigation/BrandAvatar";
+import { DesktopNavigation } from "./navigation/DesktopNavigation";
+import { LanguageSwitcher } from "./navigation/LanguageSwitcher";
+import { MobileNavigation } from "./navigation/MobileNavigation";
 
 export function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  const { t, link } = useI18n();
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 border-b transition-colors duration-300",
-        scrolled
-          ? "border-border bg-[rgba(7,11,20,0.86)] backdrop-blur-xl"
-          : "border-transparent bg-transparent",
-      )}
-    >
-      <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
-        <Link href="/" className="focus-ring group flex items-center gap-3 rounded-full">
-          <span className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-accent/40">
-            <Image
-              src={profile.photo}
-              alt={profile.nameFa}
-              fill
-              className="object-cover"
-              sizes="40px"
-              priority
-            />
-          </span>
-          <span className="leading-tight">
-            <span className="font-display block text-sm font-semibold text-text">
-              {profile.nameFa}
+    <header className="sticky top-4 z-50 mx-auto mt-4 w-[calc(100%_-_2rem)] max-w-[1240px] sm:top-5 sm:mt-5">
+      <div className="relative flex min-h-[76px] items-center justify-between gap-4 rounded-[1.5rem] border border-white/90 bg-white/75 px-4 shadow-[0_8px_40px_rgba(45,88,145,0.07),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-2xl sm:px-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <MobileNavigation key={pathname} pathname={pathname} />
+          <Link href={link("/")} className="focus-ring group flex min-w-0 shrink-0 items-center gap-3 rounded-xl">
+            <BrandAvatar priority />
+            <span className="leading-tight lg:max-xl:sr-only">
+              <span className="block text-sm font-bold text-text sm:text-base">
+                {t.brand.name}
+                <span className="text-accent">.</span>
+              </span>
+              <span className="mt-1 block text-[10px] tracking-wide text-text-muted" dir="ltr">
+                FRONT-END DEVELOPER
+              </span>
             </span>
-            <span className="font-mono text-[11px] text-text-muted">
-              {profile.titleEn}
-            </span>
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "focus-ring rounded-full px-3.5 py-2 text-sm transition-colors",
-                  active
-                    ? "bg-accent-soft text-accent-2"
-                    : "text-text-muted hover:bg-white/5 hover:text-text",
-                )}
-              >
-                {link.labelFa}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button href="/contact" variant="outline" className="!py-2">
-            تماس
-          </Button>
-          <Button href="/projects" className="!py-2">
-            نمونه‌کارها
-            <ArrowUpLeft className="h-4 w-4" />
-          </Button>
+          </Link>
         </div>
 
-        <button
-          type="button"
-          className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-border lg:hidden"
-          aria-label={open ? "بستن منو" : "باز کردن منو"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
+        <DesktopNavigation pathname={pathname} />
 
-      {open ? (
-        <div className="border-t border-border bg-bg-elevated lg:hidden">
-          <nav className="container-page flex flex-col gap-1 py-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-xl px-3 py-3 text-sm text-text-muted hover:bg-white/5 hover:text-text"
-              >
-                {link.labelFa}
-              </Link>
-            ))}
-            <Button href="/contact" className="mt-2 w-full">
-              ارتباط با من
+        <div className="flex shrink-0 items-center gap-2">
+          <LanguageSwitcher />
+          <div className="hidden lg:block">
+            <Button href={link("/contact")} className="!rounded-xl !px-4 !py-2.5">
+              {t.header.cta}
+              <ArrowUpRight aria-hidden="true" className="mirror-rtl h-4 w-4" />
             </Button>
-          </nav>
+          </div>
         </div>
-      ) : null}
+      </div>
     </header>
   );
 }

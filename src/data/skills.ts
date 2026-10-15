@@ -1,10 +1,8 @@
-import type { SkillGroup } from "./types";
+import type { SkillGroupBase } from "./types";
 
-export const skillGroups: SkillGroup[] = [
+export const skillGroups = [
   {
     id: "html-css",
-    title: "HTML و CSS",
-    titleEn: "HTML & CSS",
     icon: "layout",
     items: [
       { name: "HTML5 / CSS3", level: "expert" },
@@ -16,8 +14,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "javascript",
-    title: "JavaScript",
-    titleEn: "JavaScript",
     icon: "code",
     items: [
       { name: "ES6+", level: "advanced" },
@@ -28,8 +24,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "typescript",
-    title: "TypeScript",
-    titleEn: "TypeScript",
     icon: "braces",
     items: [
       { name: "Types & Interfaces", level: "advanced" },
@@ -38,8 +32,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "react",
-    title: "React و کتابخانه‌ها",
-    titleEn: "React & Libraries",
     icon: "atom",
     items: [
       { name: "Hooks / Context / Suspense", level: "advanced" },
@@ -51,8 +43,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "next",
-    title: "Next.js",
-    titleEn: "Next.js",
     icon: "triangle",
     items: [
       { name: "App Router / Pages Router", level: "advanced" },
@@ -63,8 +53,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "wordpress",
-    title: "وردپرس و افزونه",
-    titleEn: "WordPress & Plugins",
     icon: "wordpress",
     items: [
       { name: "WooCommerce Customization", level: "advanced" },
@@ -74,15 +62,42 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
+    id: "ai-development",
+    icon: "sparkles",
+    items: [
+      { labelKey: "aiIdeation", level: "intermediate" },
+      { labelKey: "aiInterfaces", level: "intermediate" },
+      { labelKey: "promptEngineering", level: "familiar" },
+    ],
+  },
+  {
+    id: "ai-media",
+    icon: "clapperboard",
+    items: [
+      { name: "Google Flow", level: "intermediate" },
+      { labelKey: "aiAdBanners", level: "intermediate" },
+      { labelKey: "aiRealisticVideo", level: "intermediate" },
+    ],
+  },
+  {
+    id: "backend-databases",
+    icon: "database",
+    items: [
+      { labelKey: "nodeBackend", level: "familiar" },
+      { name: "MySQL", level: "familiar" },
+      { name: "PostgreSQL", level: "familiar" },
+      { labelKey: "otherDatabases", level: "familiar" },
+    ],
+  },
+  {
     id: "tools",
-    title: "ابزارها",
-    titleEn: "Tools",
     icon: "wrench",
     items: [
       { name: "Git / GitHub", level: "advanced" },
       { name: "Figma (UI collaboration)", level: "intermediate" },
       { name: "Photoshop / CorelDRAW", level: "intermediate" },
-      { name: "MySQL / Node.js (پایه)", level: "intermediate" },
     ],
   },
-];
+] as const satisfies readonly SkillGroupBase[];
+
+export type SkillGroupId = (typeof skillGroups)[number]["id"];

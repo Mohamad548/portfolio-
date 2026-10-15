@@ -1,121 +1,116 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowUpLeft, Download, Sparkles } from "lucide-react";
+import { ArrowRight, Atom, Code2, MapPin, Sparkles } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
+import { getI18n } from "@/i18n/server";
 
-export function Hero() {
+export async function Hero() {
+  const { t, link } = await getI18n();
+  const hero = t.pages.home.hero;
+
   return (
-    <section className="relative overflow-hidden border-b border-border">
-      <div className="container-page grid items-center gap-10 py-16 md:grid-cols-[1.15fr_0.85fr] md:py-24 lg:gap-16">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-3 py-1.5 text-xs text-text-muted"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-accent-2" />
-            {profile.availableFa}
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-mono mb-3 text-sm tracking-wide text-accent-2"
-          >
-            {profile.nameEn}
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display text-4xl font-semibold leading-[1.15] tracking-tight md:text-5xl lg:text-6xl"
-          >
-            <span className="block text-text">{profile.nameFa}</span>
-            <span className="gradient-text mt-2 block text-3xl md:text-4xl lg:text-5xl">
-              {profile.headlineFa}
+    <section id="hero" className="hero-section" aria-labelledby="hero-heading">
+      <div className="hero-halo hero-halo-one" aria-hidden="true" />
+      <div className="hero-halo hero-halo-two" aria-hidden="true" />
+      <div className="container-page hero-layout">
+        <div className="hero-copy">
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <span className="eyebrow-pill">
+              <Code2 size={16} aria-hidden="true" /> {t.ui.brand.role}
             </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.18 }}
-            className="mt-6 max-w-xl text-base leading-8 text-text-muted md:text-lg"
-          >
-            {profile.taglineFa}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.26 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            <Button href="/projects">
-              مشاهده نمونه‌کارها
-              <ArrowUpLeft className="h-4 w-4" />
+            <span className="inline-flex items-center gap-2 text-xs text-text-muted">
+              <span className="status-dot" /> {hero.available}
+            </span>
+          </div>
+          <p className="mb-3 text-sm text-text-muted">{hero.greeting}</p>
+          <h1 id="hero-heading" className="hero-heading">
+            {hero.headingLead}
+            <br />
+            <span className="gradient-text">{hero.headingHighlight}</span>
+          </h1>
+          <p className="hero-description">{hero.description}</p>
+          <div className="mt-6 flex flex-wrap gap-2.5" aria-label={hero.techLabel}>
+            <span className="tech-pill">
+              <span className="wordpress-mark" aria-hidden="true">
+                W
+              </span>{" "}
+              WordPress
+            </span>
+            <span className="tech-pill">
+              <span className="next-mark" aria-hidden="true">
+                N
+              </span>{" "}
+              Next.js
+            </span>
+            <span className="tech-pill">
+              <Atom size={19} className="text-sky-600" aria-hidden="true" /> React
+            </span>
+            <span className="tech-pill tech-pill-ai">
+              <Sparkles size={17} aria-hidden="true" /> {hero.aiPill}
+            </span>
+          </div>
+          <div className="hero-actions mt-8 flex flex-wrap gap-3">
+            <Button href={link("/projects")} className="!px-7 !py-3.5">
+              {hero.viewProjects} <ArrowRight size={18} aria-hidden="true" className="mirror-rtl" />
             </Button>
-            <Button href="/contact" variant="outline">
-              همکاری با من
+            <Button href={link("/contact")} variant="outline" className="!px-7 !py-3.5">
+              {hero.startCollaboration} <ArrowRight size={17} aria-hidden="true" className="mirror-rtl" />
             </Button>
-            <Button href="/about" variant="ghost">
-              <Download className="h-4 w-4" />
-              درباره و رزومه
-            </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-10 flex flex-wrap gap-6 font-mono text-xs text-text-muted"
-          >
-            <span>Since {profile.yearsSince}</span>
-            <span>React · Next.js · WordPress</span>
-            <span>{profile.cityEn}</span>
-          </motion.div>
+          </div>
+          <p className="mt-6 flex items-center gap-2 text-xs leading-6 text-text-muted">
+            <Sparkles size={15} className="text-accent" aria-hidden="true" />{" "}
+            {t.profile.aiExperience}
+          </p>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="relative mx-auto w-full max-w-md"
-        >
-          <div className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.25),transparent_55%)] blur-2xl" />
-          <div className="glass relative overflow-hidden rounded-[1.75rem] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
-            <div className="mb-3 flex items-center gap-2 px-2 pt-1">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
-              <span className="font-mono mr-auto text-[11px] text-text-muted">
-                portfolio.tsx — {profile.titleEn}
-              </span>
+        <div className="portrait-stage">
+          <div className="portrait-backplate" aria-hidden="true" />
+          <div className="glass-ribbon ribbon-back" aria-hidden="true" />
+          <div className="portrait-frame">
+            <div className="portrait-dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
             </div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-              <Image
-                src={profile.photo}
-                alt={profile.nameFa}
-                fill
-                priority
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 90vw, 420px"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/55 to-transparent p-5">
-                <p className="font-display text-lg font-semibold">{profile.titleFa}</p>
-                <p className="font-mono text-xs text-accent-2">
-                  Maktab Sharif · React Bootcamp
-                </p>
-              </div>
+            <Image
+              src={profile.photo}
+              alt={hero.photoAlt}
+              fill
+              priority
+              sizes="(max-width: 767px) 90vw, (max-width: 1200px) 45vw, 520px"
+              className="portrait-photo"
+            />
+            <div className="portrait-caption">
+              <span className="status-dot" />
+              <span dir="ltr">MOHAMAD MAHMODI</span>
+              <Code2 size={17} aria-hidden="true" />
             </div>
           </div>
-        </motion.div>
+          <div className="glass-ribbon ribbon-front" aria-hidden="true" />
+          <div className="portrait-badge portrait-badge-top">
+            <Atom size={24} aria-hidden="true" />
+            <span>
+              {hero.badgeTop}
+              <span
+                className="block text-[10px] font-normal tracking-wide text-text-muted"
+                dir="ltr"
+              >
+                DESIGN · DEVELOP · DELIVER
+              </span>
+            </span>
+          </div>
+          <div className="portrait-badge portrait-badge-bottom">
+            <Sparkles size={20} aria-hidden="true" />
+            <span>
+              {hero.badgeBottom}
+              <span className="block text-[11px] font-normal text-text-muted">
+                {hero.badgeBottomNote}
+              </span>
+            </span>
+          </div>
+          <span className="portrait-location">
+            <MapPin size={13} aria-hidden="true" /> {t.profile.location}
+          </span>
+        </div>
       </div>
     </section>
   );
